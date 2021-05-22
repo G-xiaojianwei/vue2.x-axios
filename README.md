@@ -98,7 +98,7 @@ proxyTable: {
         })
       }
       
-     //第二种写法promise
+     //第二种写法async/await
      async mounted () {
         const result = await reqFoodCategorys()
         console.log(result)
