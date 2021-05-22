@@ -1,16 +1,16 @@
-#vue项目的安装与使用
+# vue项目的安装与使用
 
-##vue2.x版本的安装
+## vue2.x版本的安装
 ```python
     npm install vue@2.5.2 vue-cli -g
     vue init webpack 'project'
 ```
 
-###vue2.x版本与axios异步请求
+### vue2.x版本与axios异步请求
 > 将axios内容封装在项目src -- api文件夹中
 >axios安装命令：`npm i axios --save`
 
-####ajax.js
+#### ajax.js
 ```python
 /*
 ajax请求函数模块
@@ -48,7 +48,7 @@ export default function ajax (url, data={}, type='GET') {
   })
 }
 ```
-####aindex.js
+#### aindex.js
 ```python
     /*
 包含n个接口请求函数的模块
@@ -63,9 +63,9 @@ export const reqAddress = (geohash) => ajax(`${BASE_URL}/position/${geohash}`)
 export const reqFoodCategorys = () => ajax(BASE_URL+'/index_category')
 ```
 
-###跨域配置
+### 跨域配置
 > 文件内容在config文件夹中
-####index.js(片段)
+#### index.js(片段)
 ```python
 proxyTable: {
   '/api': { // 匹配所有以 '/api'开头的请求路径
@@ -77,7 +77,7 @@ proxyTable: {
   }
 }    
 ```
-###使用方法
+### 使用方法
 **HelloWorld.vue**
 ```python
 <script>
