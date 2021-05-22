@@ -48,7 +48,7 @@ export default function ajax (url, data={}, type='GET') {
   })
 }
 ```
-#### aindex.js
+#### index.js
 ```python
     /*
 包含n个接口请求函数的模块
