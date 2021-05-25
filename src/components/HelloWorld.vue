@@ -1,96 +1,21 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+  <div class="hello" >
+    <h1>{{ a }}</h1>
+    <h1>{{ nameA }}</h1>
+    <button @click="addAsync2()">点击1</button>
+    <button @click="ADDFUN_A({n:1})">点击2</button>
+    <button @click="addSan()">点击3</button>
   </div>
 </template>
 
 <script>
 import {reqFoodCategorys} from '../api'
-
+import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
 export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: ' Vue.js App'
     }
   },
   mounted () {
@@ -98,6 +23,19 @@ export default {
     result.then(function (r) {
       console.log(r)
     })
+  },
+  computed:{
+    ...mapState(['a']),
+    ...mapGetters(['nameA']),
+  },
+  methods:{
+    ...mapMutations(['ADDFUN_A']),
+    ...mapActions(['addAsync','addAsync2']),
+    
+    addSan(){
+    this.$store.dispatch('addAsync2')
+    }
+
   }
 }
 </script>
