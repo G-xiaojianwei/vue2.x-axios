@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-# vue项目的安装与使用
-
-=======
->>>>>>> 872760d (新增vuex)
 ## vue2.x版本的安装
 ```python
     npm install vue@2.5.2 vue-cli -g
@@ -13,13 +8,9 @@
 > 将axios内容封装在项目src -- api文件夹中
 >axios安装命令：`npm i axios --save`
 
-<<<<<<< HEAD
-#### ajax.js
-=======
 ---
 
 **ajax.js**
->>>>>>> 872760d (新增vuex)
 ```python
 /*
 ajax请求函数模块
@@ -57,11 +48,7 @@ export default function ajax (url, data={}, type='GET') {
   })
 }
 ```
-<<<<<<< HEAD
-#### index.js
-=======
 **index.js**
->>>>>>> 872760d (新增vuex)
 ```python
     /*
 包含n个接口请求函数的模块
@@ -78,13 +65,9 @@ export const reqFoodCategorys = () => ajax(BASE_URL+'/index_category')
 
 ### 跨域配置
 > 文件内容在config文件夹中
-<<<<<<< HEAD
-#### index.js(片段)
-=======
 
 **index.js(片段)**
 
->>>>>>> 872760d (新增vuex)
 ```python
 proxyTable: {
   '/api': { // 匹配所有以 '/api'开头的请求路径
@@ -96,10 +79,7 @@ proxyTable: {
   }
 }    
 ```
-<<<<<<< HEAD
-=======
 
->>>>>>> 872760d (新增vuex)
 ### 使用方法
 **HelloWorld.vue**
 ```python
@@ -121,7 +101,7 @@ proxyTable: {
         })
       }
       
-     //第二种写法async/await
+     //第二种写法promise
      async mounted () {
         const result = await reqFoodCategorys()
         console.log(result)
@@ -129,8 +109,6 @@ proxyTable: {
     }
 </script>
 ```
-<<<<<<< HEAD
-=======
 ---
 ### vue2.x版本中的vuex使用
 vuex中的核心概念有`state` `getters` `mutations` `actions`
@@ -203,7 +181,7 @@ new Vue({
 
 ```
 
-###vuex在组件中的使用
+### vuex在组件中的使用
 ```python
 <div class="hello" >
     <h1>{{ a }}</h1>
@@ -246,4 +224,86 @@ export default {
 }
 </script>
 ```
->>>>>>> 872760d (新增vuex)
+### vuex的使用风格二
+
+> 将 ` store ` 目录下的 `index.js` 里面的内容拆分出来封装在单独的文件中
+
+拆分 `state` 为 `state.js`
+
+```python
+export default {
+    // 状态管理数据存放
+    a:12454,
+    name:'vue'
+}
+```
+
+拆分`mutations` 为 `mutations.js`
+
+```python
+import {ADDFUN_A} from './mutation-types'
+
+export default {
+    //同步函数，类似于vue中的methods
+    [ADDFUN_A](state,payload){
+        state.a+=payload.n
+    }
+}
+```
+
+拆分 `actions` 为 `actions.js`
+
+```pytho
+export default {
+    //异步函数
+    addAsync({commit}){
+       setTimeout(function(){
+        commit({
+            type:'ADDFUN_A',
+            n:2
+        })
+       },1000)
+    },
+    addAsync2({dispatch}){
+        dispatch('addAsync')
+    }
+}
+```
+
+拆分 `getters` 为 `getters.js`
+
+```python
+export default {
+    //vuex中的计算属性，可以将复杂的计算处理后返回 用户想要的值
+    nameA(state){
+        return state.name+state.a
+    }
+}
+```
+将mutations中使用的函数名称提取为单独文件 `mutation-types.js`
+
+```python
+export  const ADDFUN_A='ADDFUN_A'
+```
+
+ 将内容都引入 `index.js` 文件
+ 
+```python
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+import state from './state'
+import mutations from './mutations'
+import actions from './actions'
+import getters from './getters'
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+    state,
+    mutations,
+    actions,
+    getters
+})
+
+```
